@@ -11,17 +11,17 @@ variable "resource_tags" {
   type        = map(string)
   default = {
     Environment = "dev",
-    Terraform       = "true"
+    Terraform   = "true"
     Name        = "vertigo-devops"
   }
 }
 
 variable "environment" {
-    default = "dev"
+  default = "dev"
 }
 
 variable "bucket_name" {
-    description = "A unique S3 Bucket name"
-    type = string
-    default = "vertigo-devops"
+  description = "A unique S3 Bucket name"
+  type        = string
+  default     = "vertigo-devops"
 }
