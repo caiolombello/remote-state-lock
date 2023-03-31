@@ -4,10 +4,11 @@ stages:
   - destroy
 
 .terraform:
-  image: hashicorp/terraform:latest
-  entrypoint:
-    - '/bin/sh'
-    - '-c'
+  image: 
+    name: hashicorp/terraform:latest
+    entrypoint:
+      - '/bin/sh'
+      - '-c'
   before_script:
     - terraform init
 
