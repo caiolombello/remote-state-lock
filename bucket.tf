@@ -1,6 +1,6 @@
 # Create a bucket for storage the terraform remote-state
 resource "aws_s3_bucket" "remote-state" {
-  bucket = "${var.bucket_name}-${var.environment}"
+  bucket = "${var.name_suffix}-${var.environment}"
   tags   = var.resource_tags
 }
 
@@ -56,4 +56,10 @@ output "remote_state_bucket" {
 # Output bucket arn 
 output "remote_state_bucket_arn" {
   value = aws_s3_bucket.remote-state.arn
+}
+
+locals {
+  # Project tags
+  name_suffix = var.resource_tags["Name"]
+  environment = var.resource_tags["Environment"]
 }

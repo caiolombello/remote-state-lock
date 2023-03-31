@@ -15,13 +15,3 @@ variable "resource_tags" {
     Name        = "vertigo-devops"
   }
 }
-
-variable "environment" {
-  default = "dev"
-}
-
-variable "bucket_name" {
-  description = "A unique S3 Bucket name"
-  type        = string
-  default     = "vertigo-devops"
-}
