@@ -19,9 +19,3 @@ resource "aws_dynamodb_table" "terraform-lock" {
     "Name" = "DynamoDB Terraform State Lock Table"
   }
 }
-
-locals {
-  # Project tags
-  name_suffix = var.resource_tags["Name"]
-  environment = var.resource_tags["Environment"]
-}

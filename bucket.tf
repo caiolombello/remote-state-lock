@@ -57,9 +57,3 @@ output "remote_state_bucket" {
 output "remote_state_bucket_arn" {
   value = aws_s3_bucket.remote-state.arn
 }
-
-locals {
-  # Project tags
-  name_suffix = var.resource_tags["Name"]
-  environment = var.resource_tags["Environment"]
-}

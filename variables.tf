@@ -15,3 +15,9 @@ variable "resource_tags" {
     Name        = "vertigo-devops"
   }
 }
+
+locals {
+  # Project tags
+  name_suffix = var.resource_tags["Name"]
+  environment = var.resource_tags["Environment"]
+}
