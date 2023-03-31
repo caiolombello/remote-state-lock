@@ -12,7 +12,7 @@ before_script:
 plan:
   stage: plan
   script:
-    - terraform plan -out="planfile"
+    - terraform plan -out=planfile
   artifacts:
     paths:
       - planfile
