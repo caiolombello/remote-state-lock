@@ -1,0 +1,59 @@
+stages:
+  - init
+  - validate
+  - plan
+  - apply
+  - destroy
+
+variables:
+  TF_ROOT: ${CI_PROJECT_DIR}
+  TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/${CI_ENVIRONMENT_SLUG}
+
+before_script:
+  - cd ${TF_ROOT}
+  - terraform --version
+
+terraform_init:
+  stage: init
+  image: hashicorp/terraform:latest
+  script:
+    - terraform init -backend-config="address=${TF_ADDRESS}" -backend-config="access_token=${CI_JOB_TOKEN}"
+
+terraform_validate:
+  stage: validate
+  image: hashicorp/terraform:latest
+  script:
+    - terraform validate
+
+terraform_plan:
+  stage: plan
+  image: hashicorp/terraform:latest
+  script:
+    - terraform plan -out=plan.tfplan
+  artifacts:
+    paths:
+      - plan.tfplan
+
+terraform_apply:
+  stage: apply
+  image: hashicorp/terraform:latest
+  script:
+    - terraform apply -input=false -auto-approve plan.tfplan
+  when: manual
+  environment:
+    name: ${CI_COMMIT_REF_NAME}
+    url: https://${CI_COMMIT_REF_NAME}.your-domain.com
+  only:
+    - main
+
+terraform_destroy:
+  stage: destroy
+  image: hashicorp/terraform:latest
+  script:
+    - terraform destroy -auto-approve
+  when: manual
+  environment:
+    name: ${CI_COMMIT_REF_NAME}
+    action: stop
+  only:
+    - main
